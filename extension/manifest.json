@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Image → GPT Image Prompt",
+  "version": "1.0.0",
+  "description": "右键任意图片，一键生成可用于 GPT Image 复现该图的高保真提示词。自带 API Key，密钥仅存本地。",
+  "permissions": ["contextMenus", "storage", "scripting"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "options_page": "options.html",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "Image → GPT Image Prompt 设置",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  }
+}

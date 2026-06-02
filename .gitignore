@@ -1,0 +1,19 @@
+# 密钥（绝不提交）
+.env
+.env.local
+**/.env.local
+
+# Chrome 测试 profile（含浏览数据，体积大）
+.chrome-test-profile/
+
+# 构建产物
+dist/
+
+# 依赖
+node_modules/
+
+# 系统/编辑器
+.DS_Store
+**/.DS_Store
+.vscode/
+.idea/

@@ -1,0 +1,14 @@
+{
+  "name": "image-prompt-backend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Vercel 后端代理：图片 -> GPT Image 2 复现提示词",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel deploy --prod"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "vercel": "^39.0.0"
+  }
+}
