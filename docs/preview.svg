@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="560" viewBox="0 0 1000 560" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2b2f45"/>
+      <stop offset="1" stop-color="#0f1020"/>
+    </linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="42"/></filter>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#000" flood-opacity="0.45"/>
+    </filter>
+    <clipPath id="panelClip"><rect x="540" y="120" width="400" height="330" rx="18"/></clipPath>
+  </defs>
+
+  <!-- 背景 + 模糊色块（用来体现毛玻璃穿透） -->
+  <rect width="1000" height="560" fill="url(#bg)"/>
+  <g filter="url(#blur)" opacity="0.85">
+    <circle cx="250" cy="180" r="130" fill="#4f7cff"/>
+    <circle cx="420" cy="430" r="150" fill="#ff5da2"/>
+    <circle cx="720" cy="300" r="170" fill="#34d3a6"/>
+    <circle cx="900" cy="120" r="110" fill="#ffb454"/>
+  </g>
+
+  <!-- 左侧：使用流程 -->
+  <g fill="#ffffff">
+    <text x="64" y="92" font-size="26" font-weight="700">Image → GPT Image Prompt</text>
+    <text x="64" y="126" font-size="15" fill="#c7c9d9">右键任意图片，一键生成可复现该图的提示词</text>
+
+    <g font-size="15" fill="#e8e9f2">
+      <circle cx="76" cy="200" r="15" fill="#4f7cff"/>
+      <text x="76" y="205" font-size="14" font-weight="700" text-anchor="middle" fill="#fff">1</text>
+      <text x="104" y="205">在图片上点右键</text>
+
+      <circle cx="76" cy="252" r="15" fill="#4f7cff"/>
+      <text x="76" y="257" font-size="14" font-weight="700" text-anchor="middle" fill="#fff">2</text>
+      <text x="104" y="257">选「转换为 GPT Image 提示词」</text>
+
+      <circle cx="76" cy="304" r="15" fill="#4f7cff"/>
+      <text x="76" y="309" font-size="14" font-weight="700" text-anchor="middle" fill="#fff">3</text>
+      <text x="104" y="309">毛玻璃浮层出结果，一键复制</text>
+    </g>
+
+    <!-- 右键菜单小样 -->
+    <g transform="translate(64,360)">
+      <rect width="300" height="110" rx="10" fill="#1c1c22" stroke="#3a3a40"/>
+      <text x="18" y="34" font-size="13" fill="#9a9aa6">查看图片</text>
+      <text x="18" y="62" font-size="13" fill="#9a9aa6">图片另存为…</text>
+      <rect x="6" y="74" width="288" height="28" rx="6" fill="#4f7cff" opacity="0.22"/>
+      <text x="18" y="93" font-size="13" font-weight="600" fill="#cdd7ff">转换为 GPT Image 提示词</text>
+    </g>
+  </g>
+
+  <!-- 右侧：毛玻璃结果浮层 -->
+  <g filter="url(#shadow)">
+    <g clip-path="url(#panelClip)">
+      <rect x="540" y="120" width="400" height="330" fill="#1c1c22" opacity="0.55"/>
+      <!-- 模拟玻璃透出的高光 -->
+      <rect x="540" y="120" width="400" height="120" fill="#ffffff" opacity="0.06"/>
+    </g>
+    <rect x="540" y="120" width="400" height="330" rx="18" fill="none" stroke="#ffffff" stroke-opacity="0.16"/>
+
+    <!-- 标题栏 -->
+    <text x="562" y="156" font-size="15" font-weight="600" fill="#f3f3f7">GPT Image 提示词</text>
+    <text x="912" y="157" font-size="15" fill="#9a9aa6" text-anchor="middle">✕</text>
+    <line x1="540" y1="174" x2="940" y2="174" stroke="#ffffff" stroke-opacity="0.08"/>
+
+    <!-- 提示词正文（等宽） -->
+    <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11.5" fill="#e9e9ef">
+      <text x="562" y="200">Use case: photorealistic recreation, 3:2.</text>
+      <text x="562" y="220">Background/Scene: soft-lit studio, shallow</text>
+      <text x="562" y="240">depth of field, neutral grey backdrop.</text>
+      <text x="562" y="260">Subject: a tabby cat, green eyes, centered,</text>
+      <text x="562" y="280">facing camera, eye-level shot.</text>
+      <text x="562" y="300">In-image Text: none.</text>
+      <text x="562" y="320">Color Palette: #c9a36b fur, #4a4a4a shadow,</text>
+      <text x="562" y="340">#eceae6 backdrop, #2e7d5b eyes.</text>
+      <text x="562" y="360" fill="#9a9aa6">Constraints: preserve layout… 1536x1024.</text>
+    </g>
+
+    <!-- 复制按钮 -->
+    <line x1="540" y1="392" x2="940" y2="392" stroke="#ffffff" stroke-opacity="0.08"/>
+    <rect x="562" y="406" width="356" height="34" rx="10" fill="#4f7cff" fill-opacity="0.85" stroke="#ffffff" stroke-opacity="0.16"/>
+    <text x="740" y="428" font-size="13" font-weight="600" fill="#ffffff" text-anchor="middle">复制提示词</text>
+  </g>
+
+  <text x="540" y="490" font-size="12" fill="#7c7e90">界面预览（UI preview，矢量示意）</text>
+</svg>
