@@ -110,26 +110,43 @@ async function fetchImageAsDataUrl(url) {
 }
 
 async function describe(cfg, dataUrl) {
-  const res = await fetch(`${cfg.baseUrl}/chat/completions`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${cfg.apiKey}`,
-    },
-    body: JSON.stringify({
-      model: cfg.model,
-      messages: [
-        { role: "system", content: META_PROMPT },
-        {
-          role: "user",
-          content: [
-            { type: "text", text: "Recreate this image. Output only the GPT Image 2 prompt." },
-            { type: "image_url", image_url: { url: dataUrl, detail: "high" } },
-          ],
-        },
-      ],
-    }),
-  });
+  // 90s 超时：防模型 hang 住 / 网络半死时浮层无限转
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 90000);
+  let res;
+  try {
+    res = await fetch(`${cfg.baseUrl}/chat/completions`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${cfg.apiKey}`,
+      },
+      body: JSON.stringify({
+        model: cfg.model,
+        messages: [
+          { role: "system", content: META_PROMPT },
+          {
+            role: "user",
+            content: [
+              { type: "text", text: "Recreate this image. Output only the GPT Image 2 prompt." },
+              { type: "image_url", image_url: { url: dataUrl, detail: "high" } },
+            ],
+          },
+        ],
+      }),
+      signal: controller.signal,
+    });
+  } catch (e) {
+    if (e && e.name === "AbortError") {
+      throw withAction(
+        new Error("识别超时（90 秒无响应）。可能模型繁忙或网络慢，稍后再右键试试；或在设置里换个更快的模型。"),
+        "retry_image"
+      );
+    }
+    throw e; // 其它网络错误交给上层兜底（归类为「网络请求失败」）
+  } finally {
+    clearTimeout(timeout);
+  }
 
   const text = await res.text();
   let data;

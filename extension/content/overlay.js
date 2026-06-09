@@ -121,4 +121,9 @@
     else if (msg.type === "RESULT") setResult(msg.prompt);
     else if (msg.type === "ERROR") setError(msg.error, msg.action);
   });
+
+  // Esc 关闭浮层（仅在可见时响应，不干扰页面其它快捷键）
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && root && root.classList.contains("i2p-visible")) hide();
+  });
 })();

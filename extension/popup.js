@@ -10,10 +10,16 @@ document.getElementById("toggle").addEventListener("click", () => {
 });
 
 document.getElementById("save").addEventListener("click", async () => {
-  await chrome.storage.local.set({ apiKey: apiKeyEl.value.trim() });
-  status.textContent = "已保存 ✓";
+  const key = apiKeyEl.value.trim();
+  if (!key) {
+    status.textContent = "请先填 API Key";
+    status.className = "status err";
+    return;
+  }
+  await chrome.storage.local.set({ apiKey: key });
+  status.textContent = "已保存 ✓ 去图片上右键试试";
   status.className = "status ok";
-  setTimeout(() => (status.textContent = ""), 1500);
+  setTimeout(() => (status.textContent = ""), 2000);
 });
 
 document.getElementById("more").addEventListener("click", (e) => {
