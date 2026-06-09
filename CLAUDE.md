@@ -8,7 +8,7 @@ Chrome 扩展（MV3）：右键任意图片 → 调视觉模型识别 → 生成
 
 流程：右键图片 → `contextMenus` → `background.js` 抓图转 base64 → 调视觉模型 → 返回结构化提示词 → content 脚本毛玻璃浮层 + 复制。
 
-GitHub: `realruian/gpt-image-prompt`
+GitHub: `realruian/img2prompt-extension`
 
 ## 关键目录
 - `extension/` —— **MV3 扩展源**（加载进 Chrome 的就是这个目录）
