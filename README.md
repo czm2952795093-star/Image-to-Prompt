@@ -5,7 +5,9 @@
 ![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-4f7cff.svg?logo=googlechrome&logoColor=white)
 ![No Backend](https://img.shields.io/badge/Backend-not%20required-success.svg)
 
-Chrome 扩展（MV3）：右键任意图片 → 自动识别 → 生成可用于 **GPT Image** 高保真复现的提示词，一键复制。
+为创作者和 AI 工作流打造的**本地优先**图像反推扩展——右键任意图片，即得可复现它的 **GPT Image** 提示词。
+
+_Local-first image-to-prompt for GPT Image._
 
 ![界面预览](docs/preview.svg)
 
