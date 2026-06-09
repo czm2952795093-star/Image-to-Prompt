@@ -44,13 +44,23 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   try {
     const cfg = await getConfig();
     if (!cfg.apiKey) {
-      throw new Error("尚未填写 API Key。点击扩展图标打开「选项」页填入你的 AiHubMix / OpenAI Key。");
+      throw withAction(
+        new Error("尚未填写 API Key。点击下方「打开设置填 Key」，填入你的 AiHubMix / OpenAI Key。"),
+        "open_options"
+      );
     }
     const { dataUrl } = await fetchImageAsDataUrl(info.srcUrl);
     const prompt = await describe(cfg, dataUrl);
     send(tabId, { type: "RESULT", prompt });
   } catch (err) {
-    send(tabId, { type: "ERROR", error: String(err && err.message ? err.message : err) });
+    let message = String(err && err.message ? err.message : err);
+    let action = err && err.action ? err.action : null;
+    // fetch 本身 reject（断网 / API 地址写错）走不到接口分类，这里兜底
+    if (!action && /failed to fetch|networkerror|load failed|network request failed/i.test(message)) {
+      message = "网络请求失败。检查网络连接，或确认「选项」里的 API 地址填写正确（默认 https://aihubmix.com/v1）。";
+      action = "open_options";
+    }
+    send(tabId, { type: "ERROR", error: message, action });
   }
 });
 
@@ -75,7 +85,18 @@ async function getConfig() {
 async function fetchImageAsDataUrl(url) {
   if (url && url.startsWith("data:")) return { dataUrl: url };
   const res = await fetch(url);
-  if (!res.ok) throw new Error(`抓取图片失败：HTTP ${res.status}`);
+  if (!res.ok) {
+    // 403/401 多半是图床防盗链（校验 Referer）；service worker 抓图不带原页 Referer
+    const hotlink = res.status === 403 || res.status === 401;
+    throw withAction(
+      new Error(
+        hotlink
+          ? "这张图被图床拒绝抓取（防盗链）。换一张图，或先把图片保存到本地、再从本地打开右键试试。"
+          : `抓取图片失败：HTTP ${res.status}。换一张图试试。`
+      ),
+      "retry_image"
+    );
+  }
   const blob = await res.blob();
   const mimeType = blob.type || "image/png";
   const buf = await blob.arrayBuffer();
@@ -118,11 +139,42 @@ async function describe(cfg, dataUrl) {
     throw new Error(`接口返回非 JSON（HTTP ${res.status}）：${text.slice(0, 200)}`);
   }
   if (!res.ok) {
-    throw new Error(data?.error?.message || `接口错误：HTTP ${res.status}`);
+    throw classifyApiError(res.status, data?.error?.message || "");
   }
   const prompt = data?.choices?.[0]?.message?.content?.trim();
-  if (!prompt) throw new Error("视觉模型未返回内容。");
+  if (!prompt) throw new Error("视觉模型未返回内容。换一张图，或在「选项」里换个视觉模型试试。");
   return prompt;
+}
+
+// 给 Error 挂上 action 字段，供浮层决定显示哪种引导（open_options / retry_image）
+function withAction(err, action) {
+  err.action = action;
+  return err;
+}
+
+// 把网关返回的 HTTP 状态 + 原始英文报错归类成中文友好提示
+function classifyApiError(status, raw) {
+  const r = String(raw);
+  let message;
+  let action = "open_options";
+
+  if (status === 401 || /invalid.*api.?key|incorrect api key|unauthor|api key not/i.test(r)) {
+    message = "API Key 无效或未授权。打开设置检查 Key 是否填对，以及它是否来自所填「API 地址」对应的服务。";
+  } else if (
+    status === 402 ||
+    /insufficient|balance|quota|欠费|余额|账户|exceeded your current quota|not enough/i.test(r)
+  ) {
+    message = "余额或额度不足。到 AiHubMix（或你所用网关）充值后再重试。";
+  } else if (status === 404 || /model.*(not found|not exist|does not exist|no such)|unknown model/i.test(r)) {
+    message = "找不到该模型。打开设置把「视觉模型」换成网关支持的名字（如 gpt-5.5、claude-opus-4-8、gemini-3.1-pro）。";
+    action = "open_options";
+  } else if (status === 429 || /rate.?limit|too many requests/i.test(r)) {
+    message = "请求过于频繁（被限流）。稍等几秒，再右键图片试试。";
+    action = "retry_image";
+  } else {
+    message = r ? `接口错误：${r}` : `接口错误：HTTP ${status}`;
+  }
+  return withAction(new Error(message), action);
 }
 
 async function ensureOverlay(tabId) {
