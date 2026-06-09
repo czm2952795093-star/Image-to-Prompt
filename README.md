@@ -1,5 +1,10 @@
 # Image → GPT Image Prompt
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+![Manifest V3](https://img.shields.io/badge/Manifest-V3-blue.svg)
+![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-4f7cff.svg?logo=googlechrome&logoColor=white)
+![No Backend](https://img.shields.io/badge/Backend-not%20required-success.svg)
+
 Chrome 扩展（MV3）：右键任意图片 → 自动识别 → 生成可用于 **GPT Image** 高保真复现的提示词，一键复制。
 
 ![界面预览](docs/preview.svg)
