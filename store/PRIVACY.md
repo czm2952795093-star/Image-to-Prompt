@@ -1,8 +1,8 @@
-# Privacy Policy — Image → GPT Image Prompt
+# Privacy Policy — Image to Prompt
 
 _Last updated: 2026-06-03_
 
-Image → GPT Image Prompt（"the extension"）尊重并保护你的隐私。本扩展**没有任何后端服务器**，开发者**不收集、不存储、不传输**你的任何数据。
+Image to Prompt（"the extension"）尊重并保护你的隐私。本扩展**没有任何后端服务器**，开发者**不收集、不存储、不传输**你的任何数据。
 
 ## 我们收集什么
 

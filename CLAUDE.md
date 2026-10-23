@@ -1,4 +1,4 @@
-# Image → GPT Image Prompt
+# Image to Prompt
 
 Chrome 扩展（MV3）：右键任意图片 → 调视觉模型识别 → 生成可用于 **GPT Image** 高保真复现的提示词，毛玻璃浮层展示 + 一键复制。
 
@@ -8,7 +8,7 @@ Chrome 扩展（MV3）：右键任意图片 → 调视觉模型识别 → 生成
 
 流程：右键图片 → `contextMenus` → `background.js` 抓图转 base64 → 调视觉模型 → 返回结构化提示词 → content 脚本毛玻璃浮层 + 复制。
 
-GitHub: `realruian/img2prompt-extension`
+作者：Ziven
 
 ## 关键目录
 - `extension/` —— **MV3 扩展源**（加载进 Chrome 的就是这个目录）

@@ -22,7 +22,7 @@
 
   <!-- 左侧：使用流程 -->
   <g fill="#ffffff">
-    <text x="64" y="92" font-size="26" font-weight="700">Image → GPT Image Prompt</text>
+    <text x="64" y="92" font-size="26" font-weight="700">Image to Prompt</text>
     <text x="64" y="126" font-size="15" fill="#c7c9d9">右键任意图片，一键生成可复现该图的提示词</text>
 
     <g font-size="15" fill="#e8e9f2">

@@ -1,7 +1,7 @@
-// Image → GPT Image Prompt — 页面浮层。被 background 通过 executeScript 注入（可重复注入，做幂等保护）。
+// Image to Prompt — 页面浮层。被 background 通过 executeScript 注入（可重复注入，做幂等保护）。
 (() => {
-  if (window.__img2promptOverlayReady) return;
-  window.__img2promptOverlayReady = true;
+  if (window.__imageToPromptOverlayReady) return;
+  window.__imageToPromptOverlayReady = true;
 
   let root, body, copyBtn, currentPrompt = "";
   let loadingTimer = null;
@@ -16,7 +16,7 @@
   function ensureDom() {
     if (root) return;
     root = document.createElement("div");
-    root.id = "img2prompt-overlay";
+    root.id = "image-to-prompt-overlay";
     root.innerHTML = `
       <div class="i2p-panel" role="dialog" aria-label="GPT Image 提示词">
         <div class="i2p-head">

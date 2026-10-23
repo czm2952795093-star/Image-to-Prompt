@@ -1,8 +1,8 @@
-// Image → GPT Image Prompt — background service worker (MV3)
+// Image to Prompt — background service worker (MV3)
 // 无后端版：用户自带 key，扩展直接调 AiHubMix（OpenAI 兼容网关）。
 // 流程：右键图片 → 抓图转 base64 → 调视觉模型 → 浮层展示可复现提示词。
 
-const MENU_ID = "img2prompt";
+const MENU_ID = "image-to-prompt";
 const DEFAULT_BASE_URL = "https://aihubmix.com/v1";
 const DEFAULT_MODEL = "gpt-5.5";
 

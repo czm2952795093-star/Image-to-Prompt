@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "description": "Vercel 后端代理：图片 -> GPT Image 2 复现提示词",
+  "author": "Ziven",
   "scripts": {
     "dev": "vercel dev",
     "deploy": "vercel deploy --prod"

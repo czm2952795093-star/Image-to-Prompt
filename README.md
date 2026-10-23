@@ -1,4 +1,4 @@
-# Image → GPT Image Prompt
+# Image to Prompt
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 ![Manifest V3](https://img.shields.io/badge/Manifest-V3-blue.svg)
@@ -58,4 +58,4 @@ docs/preview.svg          界面预览图
 
 ## License
 
-[MIT](LICENSE) © 2026 realruian
+[MIT](LICENSE) © 2026 Ziven

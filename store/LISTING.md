@@ -5,7 +5,7 @@
 
 ## 基本信息
 
-- **名称**：Image → GPT Image Prompt
+- **名称**：Image to Prompt
 - **简短描述（≤132 字符）**：
   右键任意图片，一键生成可用于 GPT Image 复现该图的高保真提示词。自带 API Key，密钥仅存本地。
 - **类别**：Productivity（生产工具）
